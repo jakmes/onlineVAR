@@ -1,0 +1,10 @@
+Package: onlineVAR
+Title: Adaptive Sparse Online Vector Auto Regression
+Version: 0.1-0
+Date: 2017-05-17
+Authors@R: c(person(given = "Jakob", family = "Messner", role = c("aut", "cre"), email = "jwmm@elektro.dtu.dk"))
+Depends: R (>= 2.10.0)
+Imports: parallel
+Suggests: 
+Description:  
+License: GPL-2 | GPL-3

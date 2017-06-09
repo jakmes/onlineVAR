@@ -1,0 +1,15 @@
+useDynLib(onlineVAR)
+import("parallel")
+import("sparsevar")
+
+export(
+  "onlineVAR",
+  "batchVAR",
+  "onlineAR",
+  "onlineVAR.fit"
+)
+
+## methods for crch
+S3method("coef", "onlineVAR")
+S3method("predict", "onlineVAR")
+
