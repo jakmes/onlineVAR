@@ -1,10 +1,10 @@
 Package: onlineVAR
-Title: Adaptive Sparse Online Vector Auto Regression
+Title: Online Fitting of Time-Adaptive Lasso Vector Auto Regression
 Version: 0.1-0
-Date: 2017-05-17
-Authors@R: c(person(given = "Jakob", family = "Messner", role = c("aut", "cre"), email = "jwmm@elektro.dtu.dk"))
+Date: 2017-06-29
+Authors@R: c(person(given = "Jakob", family = "Messner", role = c("aut", "cre"), email = "jwmm@dtu.dk"))
 Depends: R (>= 2.10.0)
-Imports: parallel
+Imports: parallel, lattice
 Suggests: 
-Description:  
+Description: Functions for recursive online fitting of time-adaptive lasso vector auto regression. 
 License: GPL-2 | GPL-3
