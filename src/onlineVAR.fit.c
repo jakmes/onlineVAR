@@ -2,15 +2,16 @@
 #include <Rmath.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
-#include <cblas.h>
+#include <R_ext/BLAS.h>
+
 
 SEXP onlineVARfit(SEXP x, SEXP y, SEXP nu0, SEXP mui, SEXP wNi, SEXP Ri, 
   SEXP ri, SEXP seq, SEXP coefi, SEXP q, SEXP abstol, SEXP trace)
 {
   int N = INTEGER(GET_DIM(x))[0];
   int p = INTEGER(GET_DIM(x))[1];
-  int n,i,c,d,k,j,l,Ntrace=1, ptrace = 1;
-  double xn[p], yn[p], lambda, sum = 0, coefnew, diff, rpall[p*p], C[p*p], D[p*p];
+  int n,i,c,d,k,Ntrace=1, ptrace = 1;
+  double xn[p], yn[p], lambda, sum = 0, coefnew, diff, rpall[p*p], C[p*p];
   double *xptr = REAL(x);
   double *yptr = REAL(y);
   double *nu0ptr = REAL(nu0);
@@ -23,6 +24,8 @@ SEXP onlineVARfit(SEXP x, SEXP y, SEXP nu0, SEXP mui, SEXP wNi, SEXP Ri,
   int *qptr = INTEGER(q);
   int *traceptr = INTEGER(trace);
   double *abstolptr = REAL(abstol);
+  double one = 1.0;
+  double zero = 0.0;
 
   if(traceptr[0] == 1) { 
     Ntrace = N;
@@ -109,8 +112,12 @@ SEXP onlineVARfit(SEXP x, SEXP y, SEXP nu0, SEXP mui, SEXP wNi, SEXP Ri,
 
 /*    Rpp <- matrix(rep(diag(R), P), ncol = P, byrow = TRUE)*/
 /*    rpall <- r - coef[[frac]]%*%t(R) + coef[[frac]]*Rpp*/
-    cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, 
-                p, p, p, 1.0, Rptr, p, coefptr, p, 0.0, C, p);
+    F77_CALL(dgemm)("N", "T", &p,&p,&p, &one, coefptr, &p, Rptr, &p,
+        &zero, C, &p);
+
+    
+    
+
 
     for (c = 0; c < p; c++) {
       for (d = 0; d < p; d++) {
